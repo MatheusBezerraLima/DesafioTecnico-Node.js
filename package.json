@@ -1,0 +1,20 @@
+{
+  "name": "desafiot-cnico-performance-e-an-lise-de-dados-via-api",
+  "version": "1.0.0",
+  "description": "Esse desafio se baseia em uma API que recebe um arquivo JSON com 100.000 usuários e oferece endpoints performáticos e bem estruturados para análise dos dados.",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "node src/server.js",
+    "start:watch": "node --watch src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "fs": "^0.0.1-security",
+    "multer": "^2.0.0",
+    "path": "^0.12.7"
+  }
+}
