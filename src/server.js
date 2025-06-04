@@ -1,5 +1,5 @@
 const app = require('./config/express')();
-const routes = require('./routes/routes.js');
+const routes = require('./routes/routes');
 
 
 app.use('/', routes)
