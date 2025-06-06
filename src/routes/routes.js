@@ -2,7 +2,7 @@ const express = require('express');
 const routes = express.Router();
 const multer = require('multer')
 const { getReportEndPoints, getListTopCountries, getListTeams, getListSuperUsers, getAnalityLoggins } = require('../controller/controller');
-const listSuperUserService = require('../services/service');
+const {listSuperUserService, listTopCountries} = require('../services/service');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -18,7 +18,6 @@ const upload = multer({ storage });
 
 routes.get('/users', upload.single("arquivo"), (req, res) => {
     const file = req.file
-    console.log(file);
     res.status(200).json(file);
 });
 
@@ -26,5 +25,9 @@ routes.get('/users', upload.single("arquivo"), (req, res) => {
 routes.get('/superusers', async(req, res) => {
     await listSuperUserService(req, res);
 });
+
+routes.get("/top-countries", async(req, res) => {
+    await listTopCountries(res);
+})
 
 module.exports = routes;
