@@ -36,8 +36,7 @@ const listTopCountries = async(res) => {
     const dataJson = JSON.parse(data);
     const countriesGrups = {};
     const countries = [];  
-    const orderedCountriesGrups = {};
-
+    
     // Função que agrupa os usuários por pais em um novo Json.
     for(i=0; i < dataJson.length; i++){
         const user = dataJson[i];
@@ -52,30 +51,33 @@ const listTopCountries = async(res) => {
         }else{
             countriesGrups[user.country]["quantity"] += 1;
             countriesGrups[user.country]["users"].push(user);
-            countries.push(user.country);
         }
     }
 
-    // Função que ordena os grupos(paises) por quantidade de usuários em ordem decrescente.
+    var firstLoop = true;
+    var aux
+
+    // Função que ordena os grupos de paises por quantidade de usuários em ordem decrescente.
     for(i=0; i <= countries.length; i++){
-        if(i === 0){
-            for(a=0; a <= 4 ; a++){
-                orderedCountriesGrups[a] = {};
-                orderedCountriesGrups[a]["country"] = countries[i];
-                orderedCountriesGrups[a]["quantity"] = countriesGrups[countries[i]].quantity
-            }
-           
-        }else{
-            for(a=0; a <= 4; a++){
-                if(countriesGrups[countries[i]].quantity > orderedCountriesGrups[a]["quantity"]){
-                    orderedCountriesGrups[a]["country"] = countries[i];
-                    orderedCountriesGrups[a]["quantity"] = countriesGrups[countries[i]].quantity;
+        
+       
+            for(a= i+1; a <= 9; a++){       
+                if(countriesGrups[countries[a]].quantity > countriesGrups[countries[i]].quantity){
+                   
+                    firstEntry = countriesGrups[countries[a]];
+                    secondEntry = countriesGrups[countries[i]];
+                    
+                    delete  countriesGrups[countries[a]];
+                    delete  countriesGrups[countries[i]];
+
+                    countriesGrups[countries[i]] = firstEntry;
+                    countriesGrups[countries[a]] = secondEntry;
+
                 }
             }
-        }
-        console.log(orderedCountriesGrups);
-
-    }   
+    }
+    res.json(countriesGrups)
+   
 }
 
 module.exports = {
